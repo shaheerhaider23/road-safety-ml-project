@@ -1,5 +1,5 @@
-              model  accuracy  macro_precision  macro_recall  macro_f1  weighted_f1  cv_macro_f1  roc_auc_ovr_macro
-logistic_regression  0.481872         0.385188      0.469732  0.340313     0.557620     0.335318           0.629446
-        extra_trees  0.744773         0.381074      0.344002  0.324640     0.674109     0.328841           0.623967
-      random_forest  0.755515         0.382402      0.341223  0.312380     0.671298     0.312272           0.644752
-              dummy  0.760599         0.253533      0.333333  0.288008     0.657174     0.288006           0.500000
+              model  accuracy  macro_precision  macro_recall  macro_f1  weighted_f1  cv_macro_f1  roc_auc_ovr_macro  pr_auc_ovr_macro  selected
+logistic_regression  0.483359         0.385504      0.472585  0.341162     0.558786     0.337745           0.633467          0.383555      True
+        extra_trees  0.744773         0.381074      0.344002  0.324640     0.674109     0.328841           0.623967          0.381133     False
+      random_forest  0.755515         0.382402      0.341223  0.312380     0.671298     0.312272           0.644752          0.390192     False
+              dummy  0.760599         0.253533      0.333333  0.288008     0.657174     0.288006           0.500000          0.333333     False

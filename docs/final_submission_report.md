@@ -134,7 +134,7 @@ The held-out results are taken from
 
 | Model | Accuracy | Macro precision | Macro recall | Macro-F1 | Weighted-F1 | CV macro-F1 | ROC-AUC | PR-AUC | Selected |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| Logistic regression | 0.483407 | 0.385378 | 0.473631 | **0.341218** | 0.558690 | **0.337741** | 0.633519 | 0.383508 | Yes |
+| Logistic regression | 0.483359 | 0.385504 | 0.472585 | **0.341162** | 0.558786 | **0.337745** | 0.633467 | 0.383555 | Yes |
 | Extra trees | 0.744773 | 0.381074 | 0.344002 | 0.324640 | 0.674109 | 0.328841 | 0.623967 | 0.381133 | No |
 | Random forest | 0.755515 | 0.382402 | 0.341223 | 0.312380 | 0.671298 | 0.312272 | 0.644752 | 0.390192 | No |
 | Dummy classifier | 0.760599 | 0.253533 | 0.333333 | 0.288008 | 0.657174 | 0.288006 | 0.500000 | 0.333333 | No |
@@ -153,21 +153,21 @@ The selected model's held-out classification report is:
 
 | Class | Precision | Recall | F1-score | Support |
 |---|---:|---:|---:|---:|
-| Fatal | 0.032284 | 0.532895 | 0.060879 | 304 |
-| Serious | 0.289069 | 0.372867 | 0.325664 | 4,688 |
-| Slight | 0.834781 | 0.515132 | 0.637112 | 15,860 |
-| **Macro average** | **0.385378** | **0.473631** | **0.341218** | **20,852** |
+| Fatal | 0.032040 | 0.529605 | 0.060424 | 304 |
+| Serious | 0.289282 | 0.373080 | 0.325880 | 4,688 |
+| Slight | 0.835191 | 0.515069 | 0.637183 | 15,860 |
+| **Macro average** | **0.385504** | **0.472585** | **0.341162** | **20,852** |
 
 The model identifies over half of Fatal collisions in the held-out sample, but
 its Fatal precision is very low. This means many predicted Fatal cases are
 actually from another class. Performance is also weaker for the minority
 classes than for Slight collisions.
 
-The concrete error pattern is that Fatal precision is 0.032284, so a large
+The concrete error pattern is that Fatal precision is 0.032040, so a large
 majority of collisions predicted as Fatal are not Fatal. The highest subgroup
 error rates are 92.59% for road_surface_conditions=5 (25 errors from 27 rows),
-88.20% for light_conditions=6 (987 errors from 1,119 rows), 72.67% for rural
-area code 2 (4,948 errors from 6,809 rows), and 66.17% for light_conditions=7
+88.03% for light_conditions=6 (985 errors from 1,119 rows), 72.65% for rural
+area code 2 (4,947 errors from 6,809 rows), and 66.17% for light_conditions=7
 (223 errors from 337 rows).
 
 The first five rows in `prediction_errors_sample.csv` give concrete examples:

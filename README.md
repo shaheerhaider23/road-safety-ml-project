@@ -119,7 +119,7 @@ The held-out model comparison is:
 
 | Model | Accuracy | Macro-F1 | Weighted-F1 | CV Macro-F1 | ROC-AUC | PR-AUC | Selected |
 |---|---:|---:|---:|---:|---:|---:|---|
-| Logistic Regression | 0.483407 | 0.341218 | 0.558690 | 0.337741 | 0.633519 | 0.383508 | Yes |
+| Logistic Regression | 0.483359 | 0.341162 | 0.558786 | 0.337745 | 0.633467 | 0.383555 | Yes |
 | Extra Trees | 0.744773 | 0.324640 | 0.674109 | 0.328841 | 0.623967 | 0.381133 | No |
 | Random Forest | 0.755515 | 0.312380 | 0.671298 | 0.312272 | 0.644752 | 0.390192 | No |
 | Dummy Classifier | 0.760599 | 0.288008 | 0.657174 | 0.288006 | 0.500000 | 0.333333 | No |
