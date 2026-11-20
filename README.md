@@ -20,19 +20,10 @@ The raw file is preserved under `data/raw/`. The cleaned file is generated under
 ## Setup
 
 ```bash
-python3 -m venv .venv
+python3.13 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
-
-### Reproducibility
-
-The tested environment uses Python 3.9.6 and the pinned library versions:
-pandas 2.2.3, NumPy 2.0.2, Matplotlib 3.9.2, seaborn 0.13.2,
-scikit-learn 1.5.2, SciPy 1.13.1, joblib 1.4.2, pytest 8.3.3, and
-python-docx 1.1.2. Training takes roughly 20 minutes on a 2-CPU environment.
-Last-digit metric differences are possible when results are rerun with other
-library versions or on other hardware.
 
 ## Run Part A
 
@@ -125,8 +116,9 @@ The held-out model comparison is:
 | Dummy Classifier | 0.760599 | 0.288008 | 0.657174 | 0.288006 | 0.500000 | 0.333333 | No |
 
 Because the Slight class is dominant, the Dummy Classifier has high accuracy
-but weaker macro-F1. The selected model is based on macro-F1 rather than
-accuracy alone. These values come from
+but weaker macro-F1. The selected model is chosen by cross-validation macro-F1
+from training data only; held-out macro-F1 is reported only after selection.
+These values come from
 `outputs/reports/model_comparison.csv`.
 
 ## Project structure
