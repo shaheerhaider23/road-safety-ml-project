@@ -157,7 +157,7 @@ review and explain the code before submission.
 ## Reproducibility
 
 The tested environment uses Python 3.13.12 and pandas 2.3.3, NumPy 2.2.6,
-Matplotlib 3.10.7, seaborn 0.13.2, scikit-learn 1.5.2, SciPy 1.14.1,
+Matplotlib 3.10.7, seaborn 0.13.2, scikit-learn 1.6.1, SciPy 1.14.1,
 joblib 1.4.2, pytest 8.3.3, and python-docx 1.1.2. Training takes roughly
 20 minutes on 2 CPUs. Last-digit metric differences are possible on other
 library versions or hardware.
