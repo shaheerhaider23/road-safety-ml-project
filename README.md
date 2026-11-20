@@ -46,6 +46,27 @@ python -m src.database
 This creates inspection and quality reports, analysis CSVs, PNG figures, and a
 SQLite database in `outputs/`.
 
+### Figures
+
+![Collision severity distribution](outputs/figures/severity_distribution.png)
+
+What this shows: the figure shows that Slight collisions are much more common
+than Serious and Fatal collisions.
+
+![Collisions by day](outputs/figures/collisions_by_day.png)
+
+What this shows: the figure compares the number of collisions on each day of
+the week.
+
+![Severity by speed limit](outputs/figures/severity_by_speed_limit.png)
+
+What this shows: the figure compares severity counts at each speed limit.
+
+![Confusion matrix](outputs/figures/confusion_matrix.png)
+
+What this shows: the matrix compares actual severity classes with the selected
+model's predictions.
+
 ## Run Part B
 
 ```bash
@@ -72,6 +93,20 @@ The input must contain the selected predictor columns and must not contain
 pytest -q
 ```
 
+## SQL result
+
+```sql
+SELECT road_type, severity_label, COUNT(*) AS collision_count
+FROM collisions
+GROUP BY road_type, severity_label
+ORDER BY road_type, collision_count DESC;
+```
+
+The query counts collisions in the SQLite table for each road type and severity.
+The largest group is road type 6 and Slight severity with 56,263 collisions.
+Road type 6 also has 18,276 Serious and 1,146 Fatal collisions; these actual
+numbers come from `outputs/reports/sql_road_type_severity.csv`.
+
 ## Actual findings
 
 The dataset contains 104,258 collisions. Severity is strongly imbalanced:
@@ -96,10 +131,12 @@ accuracy alone. These values come from
 
 ## Project structure
 
-`src/` contains the pipeline modules, `tests/` contains small artificial unit
-tests, `docs/` contains assignment documentation, `outputs/` contains generated
-evidence, `models/` contains the saved pipeline, and `sql/` contains the
-reproducible SQL query.
+`src/` contains the pipeline modules, `tests/` contains unit tests,
+`docs/` contains assignment documentation, `outputs/` contains generated
+evidence, `models/` contains the saved pipeline, `sql/` contains the
+reproducible SQL query, `data/sample/` contains the random 2,000-row input,
+and `notebooks/` contains a small project exploration placeholder.
+`outputs/sample/` contains separate results for the second input.
 
 ## Assumptions and limitations
 
@@ -112,6 +149,19 @@ and class-level recall matter in addition to accuracy.
 
 ## AI assistance
 
-AI assistance was used for project scaffolding, debugging, and explanations.
-All dataset findings are calculated from the supplied CSV, and the student must
+Claude and the VS Code agent were used as AI assistance for project scaffolding,
+debugging, code changes, report editing, and explanations. All findings were
+checked against generated files and the supplied CSV, and the student must
 review and explain the code before submission.
+
+## Reproducibility
+
+The tested environment uses Python 3.13.12 and pandas 2.3.3, NumPy 2.2.6,
+Matplotlib 3.10.7, seaborn 0.13.2, scikit-learn 1.5.2, SciPy 1.14.1,
+joblib 1.4.2, pytest 8.3.3, and python-docx 1.1.2. Training takes roughly
+20 minutes on 2 CPUs. Last-digit metric differences are possible on other
+library versions or hardware.
+
+## Part C
+
+Part C (exploration homework) is intentionally not implemented.
