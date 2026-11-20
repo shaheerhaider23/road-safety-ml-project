@@ -1,0 +1,14 @@
+{
+  "rows_before": 104258,
+  "rows_after": 104258,
+  "columns_after": 43,
+  "duplicates_removed": 0,
+  "target_missing_after": 0,
+  "missing_values_after": 48,
+  "validation": "passed",
+  "target_counts": {
+    "3": 79298,
+    "2": 23438,
+    "1": 1522
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "best_model": "logistic_regression",
+  "test_rows": 20852,
+  "features_excluded": [
+    "collision_index",
+    "collision_ref_no",
+    "collision_severity",
+    "date",
+    "did_police_officer_attend_scene_of_accident",
+    "lsoa_of_accident_location",
+    "number_of_casualties",
+    "time"
+  ]
+}
