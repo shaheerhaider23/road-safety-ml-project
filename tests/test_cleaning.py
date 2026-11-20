@@ -1,9 +1,17 @@
 # Student name: Syed Shaheer Haider
 # Roll number: TRN-2026-000343
-# Date: 2026-11-16
+# Date: 2026-11-20
 
 import pandas as pd
-from src.cleaning import clean_data, correct_data_types, remove_exact_duplicates
+from src.cleaning import (
+    clean_data,
+    correct_data_types,
+    handle_missing_values,
+    load_raw_data,
+    remove_exact_duplicates,
+    standardize_categorical_values,
+)
+from src.features import add_temporal_features
 
 
 def sample_data():
@@ -39,3 +47,36 @@ def test_remove_exact_duplicates_handles_empty_data():
     result, removed = remove_exact_duplicates(pd.DataFrame())
     assert result.empty
     assert removed == 0
+
+
+def test_load_raw_data_missing_file_raises():
+    """A missing raw file produces a clear FileNotFoundError."""
+    import tempfile
+    from pathlib import Path
+    with tempfile.TemporaryDirectory() as directory:
+        try:
+            load_raw_data(Path(directory) / "missing.csv")
+            raise AssertionError("Expected FileNotFoundError")
+        except FileNotFoundError:
+            pass
+
+
+def test_standardize_categorical_values_uses_strings():
+    """Coded categories become strings for one-hot encoding."""
+    result = standardize_categorical_values(sample_data())
+    assert str(result["road_type"].dtype) == "string"
+
+
+def test_add_temporal_features_adds_three_columns():
+    """The moved temporal feature function adds month, hour, and weekend."""
+    converted = correct_data_types(sample_data())
+    result = add_temporal_features(converted)
+    assert {"month", "hour", "is_weekend"} <= set(result.columns)
+
+
+def test_handle_missing_values_drops_missing_target():
+    """Missing target rows are removed before model preparation."""
+    data = sample_data()
+    data.loc[0, "collision_severity"] = None
+    result = handle_missing_values(data)
+    assert len(result) == 2

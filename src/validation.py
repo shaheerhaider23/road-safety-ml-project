@@ -1,6 +1,6 @@
 # Student name: Syed Shaheer Haider
 # Roll number: TRN-2026-000343
-# Date: 2026-11-16
+# Date: 2026-11-20
 
 """Validation checks that fail explicitly for critical data problems."""
 
@@ -9,6 +9,40 @@ import pandas as pd
 REQUIRED_COLUMNS = {"collision_severity", "date", "time", "road_type", "speed_limit"}
 VALID_SEVERITIES = {1, 2, 3}
 VALID_SPEED_LIMITS = {20, 30, 40, 50, 60, 70}
+QUALITY_THRESHOLD = 0.95
+
+
+def validation_results(data: pd.DataFrame) -> dict:
+    """Run each quality check separately and report pass or fail."""
+    missing = sorted(REQUIRED_COLUMNS - set(data.columns))
+    severity = pd.to_numeric(data["collision_severity"], errors="coerce") if "collision_severity" in data else pd.Series(dtype=float)
+    speed_limit = pd.to_numeric(data["speed_limit"], errors="coerce") if "speed_limit" in data else pd.Series(dtype=float)
+    checks = {
+        "required_columns": not missing,
+        "valid_severity": bool(severity.notna().all() and set(severity.dropna()).issubset(VALID_SEVERITIES)),
+        "valid_dates": bool("date" in data and pd.to_datetime(data["date"], format="mixed", errors="coerce").notna().all()),
+        "valid_times": bool("time" in data and pd.to_datetime(data["time"], format="mixed", errors="coerce").notna().all()),
+        "valid_speed_limits": bool(speed_limit.notna().all() and set(speed_limit.dropna()).issubset(VALID_SPEED_LIMITS)),
+        "no_duplicates": not data.duplicated().any(),
+    }
+    passed = sum(1 for result in checks.values() if result)
+    results = dict(checks)
+    results["passed"] = passed
+    results["total"] = len(checks)
+    results["pass_rate"] = passed / len(checks)
+    return results
+
+
+def quality_gate(data: pd.DataFrame) -> dict:
+    """Stop a pipeline clearly when the validation pass rate is too low."""
+    results = validation_results(data)
+    if results["pass_rate"] < QUALITY_THRESHOLD:
+        raise ValueError(
+            f"Quality gate failed: pass rate {results['pass_rate']:.2%} "
+            f"is below {QUALITY_THRESHOLD:.2%}. "
+            f"Passed {results['passed']} of {results['total']} checks."
+        )
+    return results
 
 
 def identify_numeric_outliers(data: pd.DataFrame) -> dict[str, int]:

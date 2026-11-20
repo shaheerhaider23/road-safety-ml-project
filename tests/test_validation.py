@@ -1,10 +1,15 @@
 # Student name: Syed Shaheer Haider
 # Roll number: TRN-2026-000343
-# Date: 2026-11-16
+# Date: 2026-11-20
 
 import pandas as pd
 import pytest
-from src.validation import identify_numeric_outliers, validate_values, validate_or_raise
+from src.validation import (
+    identify_numeric_outliers,
+    quality_gate,
+    validate_values,
+    validate_or_raise,
+)
 
 
 def valid_data():
@@ -49,3 +54,17 @@ def test_outlier_counts_are_reported_without_rejecting_data():
     data["number_of_vehicles"] = [1, 1, 1, 1, 1, 1, 1, 1, 20]
     data["number_of_casualties"] = [1] * 9
     assert identify_numeric_outliers(data)["number_of_vehicles"] == 1
+
+
+def test_quality_gate_passes_valid_data():
+    """The quality gate accepts data above the 95 percent threshold."""
+    assert quality_gate(valid_data())["pass_rate"] == 1.0
+
+
+def test_quality_gate_fails_corrupt_data():
+    """A corrupt severity below the threshold raises a clear error."""
+    data = valid_data()
+    data.loc[0, "collision_severity"] = 9
+    data.loc[1, "speed_limit"] = 999
+    with pytest.raises(ValueError, match="Quality gate failed"):
+        quality_gate(data)

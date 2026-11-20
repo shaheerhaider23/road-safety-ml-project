@@ -1,0 +1,4 @@
+speed_band,Fatal,Serious,Slight
+High (60-70),10,108,249
+Low (20-30),8,295,1050
+Medium (40-50),6,57,217

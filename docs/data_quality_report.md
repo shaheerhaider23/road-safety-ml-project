@@ -1,7 +1,8 @@
 # Data quality report
 
-These values were calculated from the supplied CSV on 2026-11-16. They are also
+These values were calculated from the supplied CSV on 2026-11-20. They are also
 written by `python -m src.inspect_data` to
+`outputs/reports/metrics.json` and
 `outputs/reports/data_quality_metrics.json`.
 
 ## Before and after summary
@@ -13,6 +14,7 @@ written by `python -m src.inspect_data` to
 | Total missing values | 48 | 48 |
 | Exact duplicate rows | 0 | 0 |
 | Missing target values | 0 | 0 |
+| Missing percentage | 0.001046% | 0.001071% |
 | Invalid target values | 0 | 0 |
 | Invalid speed limits | 0 | 0 |
 | Invalid day-of-week values | 0 | 0 |
@@ -52,4 +54,8 @@ not deleted solely because they are statistical outliers.
 
 Validation passed. The raw dataset was not overwritten, and the cleaned data
 was written separately to `data/cleaned/collision-2023-cleaned.csv`.
+
+Six separate checks passed, so the pass rate was 100%. The quality gate in
+`src/validation.py` uses `QUALITY_THRESHOLD = 0.95` and stops the pipeline
+when fewer than 95% of checks pass.
 

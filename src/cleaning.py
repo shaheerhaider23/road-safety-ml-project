@@ -1,11 +1,13 @@
 # Student name: Syed Shaheer Haider
 # Roll number: TRN-2026-000343
-# Date: 2026-11-16
+# Date: 2026-11-20
 
 """Reusable cleaning functions for the DfT collision table."""
 
 from pathlib import Path
 import pandas as pd
+
+from .features import add_temporal_features
 
 TARGET = "collision_severity"
 OUTCOME_COLUMNS = [
@@ -50,16 +52,6 @@ def standardize_categorical_values(data: pd.DataFrame) -> pd.DataFrame:
     return result
 
 
-def add_temporal_features(data: pd.DataFrame) -> pd.DataFrame:
-    """Add month, hour, and weekend indicators without using target information."""
-    result = data.copy()
-    result["month"] = result["date"].dt.month
-    result["hour"] = pd.to_datetime(result["time"].astype("string"), format="%H:%M:%S",
-                                    errors="coerce").dt.hour
-    result["is_weekend"] = result["date"].dt.dayofweek.ge(5).astype("Int64")
-    return result
-
-
 def handle_missing_values(data: pd.DataFrame) -> pd.DataFrame:
     """Keep valid records and leave imputation to the model pipeline."""
     result = data.copy()
@@ -85,6 +77,10 @@ def clean_data(data: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     result = result.drop(columns=[c for c in OUTCOME_COLUMNS if c in result], errors="ignore")
     result["date"] = result["date"].dt.strftime("%Y-%m-%d")
     result["time"] = result["time"].astype("string")
+    total_before = len(data) * len(data.columns)
+    total_after = len(result) * len(result.columns)
+    missing_before = float(data.isna().sum().sum())
+    missing_after = float(result.isna().sum().sum())
     metrics = {
         "rows_before": len(data),
         "rows_after": len(result),
@@ -92,6 +88,8 @@ def clean_data(data: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         "duplicates_removed": duplicates_removed,
         "target_missing_after": int(result[TARGET].isna().sum()),
         "missing_values_after": int(result.isna().sum().sum()),
+        "missing_percentage_before": round(missing_before / total_before * 100, 6) if total_before else 0.0,
+        "missing_percentage_after": round(missing_after / total_after * 100, 6) if total_after else 0.0,
     }
     return result, metrics
 

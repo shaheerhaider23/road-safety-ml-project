@@ -1,6 +1,6 @@
 # Student name: Syed Shaheer Haider
 # Roll number: TRN-2026-000343
-# Date: 2026-11-16
+# Date: 2026-11-20
 
 """Create a classification report, confusion matrix, and simple error analysis."""
 
@@ -29,6 +29,7 @@ def run_evaluation() -> None:
     plt.title("Confusion matrix for selected model")
     plt.xlabel("Predicted severity")
     plt.ylabel("Actual severity")
+    plt.figtext(0.5, 0.01, "What this shows: counts of correct predictions and class-confusion errors.")
     plt.tight_layout()
     plt.savefig(FIGURES / "confusion_matrix.png", dpi=150)
     plt.close()

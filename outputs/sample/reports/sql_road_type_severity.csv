@@ -1,0 +1,15 @@
+road_type,severity_label,collision_count
+1,Slight,101
+1,Serious,11
+2,Slight,35
+2,Serious,8
+3,Slight,241
+3,Serious,54
+3,Fatal,7
+6,Slight,1060
+6,Serious,375
+6,Fatal,17
+7,Slight,23
+7,Serious,8
+9,Slight,56
+9,Serious,4

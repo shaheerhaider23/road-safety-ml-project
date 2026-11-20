@@ -1,0 +1,28 @@
+{
+  "rows_before": 2000,
+  "rows_after": 2000,
+  "columns_after": 43,
+  "duplicates_removed": 0,
+  "target_missing_after": 0,
+  "missing_values_after": 0,
+  "missing_percentage_before": 0.0,
+  "missing_percentage_after": 0.0,
+  "validation": "passed",
+  "validation_checks": {
+    "required_columns": true,
+    "valid_severity": true,
+    "valid_dates": true,
+    "valid_times": true,
+    "valid_speed_limits": true,
+    "no_duplicates": true,
+    "passed": 6,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "pass_rate": 1.0,
+  "target_counts": {
+    "3": 1516,
+    "2": 460,
+    "1": 24
+  }
+}
