@@ -82,12 +82,12 @@ fields, and added month, hour, and weekend features.
 
 The held-out model comparison is:
 
-| Model | Accuracy | Macro-F1 | Weighted-F1 | CV Macro-F1 |
-|---|---:|---:|---:|---:|
-| Logistic Regression | 0.481872 | 0.340313 | 0.557620 | 0.335318 |
-| Extra Trees | 0.744773 | 0.324640 | 0.674109 | 0.328841 |
-| Random Forest | 0.755515 | 0.312380 | 0.671298 | 0.312272 |
-| Dummy Classifier | 0.760599 | 0.288008 | 0.657174 | 0.288006 |
+| Model | Accuracy | Macro-F1 | Weighted-F1 | CV Macro-F1 | ROC-AUC | PR-AUC | Selected |
+|---|---:|---:|---:|---:|---:|---:|---|
+| Logistic Regression | 0.483407 | 0.341218 | 0.558690 | 0.337741 | 0.633519 | 0.383508 | Yes |
+| Extra Trees | 0.744773 | 0.324640 | 0.674109 | 0.328841 | 0.623967 | 0.381133 | No |
+| Random Forest | 0.755515 | 0.312380 | 0.671298 | 0.312272 | 0.644752 | 0.390192 | No |
+| Dummy Classifier | 0.760599 | 0.288008 | 0.657174 | 0.288006 | 0.500000 | 0.333333 | No |
 
 Because the Slight class is dominant, the Dummy Classifier has high accuracy
 but weaker macro-F1. The selected model is based on macro-F1 rather than

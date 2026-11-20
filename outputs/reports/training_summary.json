@@ -10,5 +10,11 @@
     "lsoa_of_accident_location",
     "number_of_casualties",
     "time"
-  ]
+  ],
+  "selection_metric": "cv_macro_f1",
+  "logistic_grid_best_params": {
+    "model__C": 0.1
+  },
+  "logistic_grid_best_cv_macro_f1": 0.33774067919631273,
+  "permutation_importance_test_sample_rows": 3000
 }

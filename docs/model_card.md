@@ -22,9 +22,17 @@ excluded to reduce leakage.
 ## Evaluation
 
 `outputs/reports/model_comparison.csv` contains accuracy, macro/weighted F1,
-macro precision/recall, one-vs-rest ROC-AUC where available, and training-fold
-cross-validation macro-F1. The test set is stratified and held out until final
-evaluation.
+macro precision/recall, one-vs-rest ROC-AUC and PR-AUC where available, and
+training-fold cross-validation macro-F1. Model choice uses cross-validation
+macro-F1 only. The test set is held out and used once for final held-out
+reporting.
+
+The top permutation-importance features are saved in
+`outputs/reports/permutation_importance.csv`. Longitude, police force, number
+of vehicles, light conditions, and location northing have the largest ranking,
+which is plausible for road-safety context but does not prove that these
+features cause severity; location and coded police-force patterns may reflect
+data collection and reporting differences.
 
 ## Limitations and risks
 
